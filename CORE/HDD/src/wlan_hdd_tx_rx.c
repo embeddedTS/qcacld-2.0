@@ -1445,8 +1445,12 @@ VOS_STATUS hdd_rx_packet_cbk(v_VOID_t *vosContext,
    while (NULL != skb) {
       skb_next = skb->next;
 
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4,9,11))
       if (((pHddStaCtx->conn_info.proxyARPService) &&
          cfg80211_is_gratuitous_arp_unsolicited_na(skb)) ||
+#else
+      if ((pHddStaCtx->conn_info.proxyARPService) ||
+#endif
          vos_is_load_unload_in_progress(VOS_MODULE_ID_VOSS, NULL)) {
             ++pAdapter->hdd_stats.hddTxRxStats.rxDropped[cpu_index];
             VOS_TRACE(VOS_MODULE_ID_HDD_DATA, VOS_TRACE_LEVEL_INFO,
