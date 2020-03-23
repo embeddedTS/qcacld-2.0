@@ -10960,7 +10960,9 @@ uint16_t hdd_select_queue(struct net_device *dev, struct sk_buff *skb)
 }
 
 static const struct ethtool_ops wlan_ethtool_ops = {
+#ifdef WLAN_FEATURE_TSF
 	.get_ts_info = wlan_get_ts_info,
+#endif
 };
 
 static struct net_device_ops wlan_drv_ops = {
