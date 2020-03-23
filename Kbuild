@@ -6,10 +6,9 @@ else
 	KERNEL_BUILD := 0
 endif
 
-ifeq ($(CONFIG_CLD_HL_SDIO_CORE), y)
-	CONFIG_QCA_WIFI_SDIO := 1
-	CONFIG_ROME_IF = sdio
-endif
+
+CONFIG_QCA_WIFI_SDIO := 1
+CONFIG_ROME_IF = sdio
 
 ifndef CONFIG_ROME_IF
 	CONFIG_ROME_IF = pci
@@ -48,17 +47,6 @@ ifeq ($(KERNEL_BUILD), 0)
 	CONFIG_MOBILE_ROUTER := y
 	endif
 
-	ifeq ($(CONFIG_ARCH_MSM8917), y)
-		ifeq ($(CONFIG_ROME_IF), sdio)
-			CONFIG_WLAN_SYNC_TSF_PLUS := y
-		endif
-	endif
-
-	ifeq ($(CONFIG_ARCH_MSM8909), y)
-		ifeq ($(CONFIG_ROME_IF), sdio)
-			CONFIG_WLAN_SYNC_TSF_PLUS := y
-		endif
-	endif
 
 	# As per target team, build is done as follows:
 	# Defconfig : build with default flags
@@ -494,15 +482,6 @@ endif
 
 ifeq ($(CONFIG_QCOM_TDLS),y)
 HDD_OBJS +=	$(HDD_SRC_DIR)/wlan_hdd_tdls.o
-endif
-
-ifeq ($(CONFIG_NETWORK_PHY_TIMESTAMPING), y)
-CONFIG_WLAN_SYNC_TSF_PLUS := y
-CONFIG_WLAN_SYNC_TSF_PTP := y
-endif
-
-ifeq ($(CONFIG_WLAN_SYNC_TSF_PLUS), y)
-CONFIG_WLAN_SYNC_TSF := y
 endif
 
 ifeq ($(CONFIG_WLAN_SYNC_TSF),y)
