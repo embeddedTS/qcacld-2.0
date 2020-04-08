@@ -1451,7 +1451,7 @@ hifIRQHandler(struct sdio_func *func)
     status = device->htcCallbacks.dsrHandler(device->htcCallbacks.context);
     sdio_claim_host(device->func);
     atomic_set(&device->irqHandling, 0);
-    AR_DEBUG_ASSERT(status == A_OK || status == A_ECANCELED);
+    //AR_DEBUG_ASSERT(status == A_OK || status == A_ECANCELED);
     AR_DEBUG_PRINTF(ATH_DEBUG_TRACE, ("AR6000: -hifIRQHandler\n"));
 }
 
